@@ -1,4 +1,4 @@
-# Kitura Manager - API Management Console Inspired by the console on the Django REST Framework 
+# Kitura Manager - API Management Inspired by the Django REST Framework 
 
 
 The project was born on Monday June 19, 2017

@@ -28,7 +28,7 @@
     {
       "package": "KituraManager",
       "reason": null,
-      "repositoryURL": "/Volumes/WORKSPACE/ZhanLei/GIT/kitura-manager",
+      "repositoryURL": "https://github.com/GaltSoft/kitura-manager.git",
       "version": "1.0.0"
     },
     {

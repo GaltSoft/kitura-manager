@@ -5,7 +5,7 @@ public class KituraManager {
     
     // MARK: - Construct
     public init (onPort port: Int = 8080) {
-        Kitura.addHTTPServer(onPort: port, with:router)
+        Kitura.addHTTPServer(onPort: port, with: self.router)
         
         self.setupRouter()
     }

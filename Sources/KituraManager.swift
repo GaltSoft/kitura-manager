@@ -12,7 +12,7 @@ public class KituraManager {
     
     // MARK: - Http Requests (Inner)
     private func setupRouter() {
-        self.router.get("/aa") {
+        self.router.get("/") {
             request, response, next in
             response.send("Hello, World!")
             next()

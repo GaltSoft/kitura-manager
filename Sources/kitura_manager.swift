@@ -7,11 +7,11 @@ public class KituraManager {
     public init (onPort port: Int = 8080) {
         Kitura.addHTTPServer(onPort: port, with:router)
         
-        self.confiugRouter()
+        self.setupRouter()
     }
     
     // MARK: - Http Requests (Inner)
-    private func confiugRouter() {
+    private func setupRouter() {
         self.router.get("/aa") {
             request, response, next in
             response.send("Hello, World!")
@@ -28,4 +28,3 @@ public class KituraManager {
         Kitura.stop()
     }
 }
-

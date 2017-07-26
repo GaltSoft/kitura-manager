@@ -3,9 +3,12 @@ import Kitura
 public typealias CBMethod = (RouterRequest, RouterResponse) -> Bool
 
 public class KituraManager {
-    internal let router = Router()
-    init(_ port: Int = 8080) {
-        Kitura.addHTTPServer(onPort: port, with: router)
+    internal let _router: Router
+    init(_ port: Int = 8080, router: Router? = nil) {
+        _router = router ?? Router()
+        if router == nil {
+            Kitura.addHTTPServer(onPort: port, with: _router)
+        }
     }
   
     // MARK: - Http Requests (Inner)
@@ -20,85 +23,85 @@ public class KituraManager {
 
         switch method {
         case .all:
-            self.router.all(path, handler:handler)
+            _router.all(path, handler:handler)
             
         case .get:
-            self.router.get(path, handler:handler)
+            _router.get(path, handler:handler)
             
         case .post:
-            self.router.post(path, handler:handler)
+            _router.post(path, handler:handler)
             
         case .put:
-            self.router.put(path, handler:handler)
+            _router.put(path, handler:handler)
             
         case .head:
-            self.router.head(path, handler:handler)
+            _router.head(path, handler:handler)
             
         case .delete:
-            self.router.delete(path, handler:handler)
+            _router.delete(path, handler:handler)
             
         case .options: 
-            self.router.options(path, handler:handler)
+            _router.options(path, handler:handler)
             
         case .trace:
-            self.router.trace(path, handler:handler)
+            _router.trace(path, handler:handler)
             
         case .copy:
-            self.router.copy(path, handler:handler)
+            _router.copy(path, handler:handler)
             
         case .lock:
-            self.router.lock(path, handler:handler)
+            _router.lock(path, handler:handler)
             
         case .mkCol:
-            self.router.mkCol(path, handler:handler)
+            _router.mkCol(path, handler:handler)
             
         case .move:
-            self.router.move(path, handler:handler)
+            _router.move(path, handler:handler)
             
         case .purge:
-            self.router.purge(path, handler:handler)
+            _router.purge(path, handler:handler)
             
         case .propFind:
-            self.router.propFind(path, handler:handler)
+            _router.propFind(path, handler:handler)
             
         case .propPatch:
-            self.router.propPatch(path, handler:handler)
+            _router.propPatch(path, handler:handler)
             
         case .unlock:
-            self.router.unlock(path, handler:handler)
+            _router.unlock(path, handler:handler)
             
         case .report:
-            self.router.report(path, handler:handler)
+            _router.report(path, handler:handler)
             
         case .mkActivity:
-            self.router.mkActivity(path, handler:handler)
+            _router.mkActivity(path, handler:handler)
             
         case .checkout:
-            self.router.checkout(path, handler:handler)
+            _router.checkout(path, handler:handler)
             
         case .merge:
-            self.router.merge(path, handler:handler)
+            _router.merge(path, handler:handler)
             
         case .mSearch:
-            self.router.mSearch(path, handler:handler)
+            _router.mSearch(path, handler:handler)
             
         case .notify:
-            self.router.notify(path, handler:handler)
+            _router.notify(path, handler:handler)
             
         case .subscribe:
-            self.router.subscribe(path, handler:handler)
+            _router.subscribe(path, handler:handler)
             
         case .unsubscribe:
-            self.router.unsubscribe(path, handler:handler)
+            _router.unsubscribe(path, handler:handler)
             
         case .patch:
-            self.router.patch(path, handler:handler)
+            _router.patch(path, handler:handler)
             
         case .search:
-            self.router.search(path, handler:handler)
+            _router.search(path, handler:handler)
             
         case .connect:
-            self.router.connect(path, handler:handler)
+            _router.connect(path, handler:handler)
             
         default:
             print("Unknown route mode")

@@ -1,10 +1,12 @@
 import Kitura
+import Reflection
 
 public typealias CBMethod = (RouterRequest, RouterResponse) -> Bool
+public protocol KMModel {  }
 
 public class KituraManager {
     internal let _router: Router
-    init(_ port: Int = 8080, router: Router? = nil) {
+    public init(_ port: Int = 8080, router: Router? = nil) {
         _router = router ?? Router()
         if router == nil {
             Kitura.addHTTPServer(onPort: port, with: _router)
@@ -106,5 +108,10 @@ public class KituraManager {
         default:
             print("Unknown route mode")
         }
+    }
+    
+    public func registerModel<T: KMModel>(_ clz: T.Type) {
+        let mirror = Mirror(reflecting: clz)
+        print(mirror.children.count)
     }
 }

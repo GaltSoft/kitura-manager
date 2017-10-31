@@ -67,3 +67,9 @@ fastlane/screenshots
 fastlane/test_output
 
 KituraManager\.xcodeproj/
+
+\.DS_Store
+
+App\.xcodeproj/
+
+*.resolved

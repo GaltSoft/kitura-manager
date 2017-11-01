@@ -111,7 +111,12 @@ public class KituraManager {
     }
     
     public func registerModel<T: KMModel>(_ clz: T.Type) {
-        let mirror = Mirror(reflecting: clz)
-        print(mirror.children.count)
+        let clzName = String(describing: T.self)
+        print("Class:\(clzName)")
+        
+        let props = try? properties(T.self)
+        for prop in props! {
+            print("Type:\(prop.type), Key:\(prop.key)")
+        }
     }
 }

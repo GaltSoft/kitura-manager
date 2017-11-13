@@ -2,7 +2,15 @@ import Kitura
 import Reflection
 
 public typealias CBMethod = (RouterRequest, RouterResponse) -> Bool
-public protocol KMModel {  }
+public protocol KMModel {
+    func primaryKey() -> String?
+    
+    /* TODO List
+      * Should have db related operations.
+      * Should contained relationship operation
+      * Should contained primary key options.
+     */
+}
 
 public class KituraManager {
     internal let _router: Router
@@ -117,6 +125,15 @@ public class KituraManager {
         let props = try? properties(T.self)
         for prop in props! {
             print("Type:\(prop.type), Key:\(prop.key)")
+        }
+        
+        // Set Router for CRUD
+        let arrRouter = ["POST", "GET", "PUT", "DELETE"]
+        for router in arrRouter {
+            setupRouter(router, path: clzName.lowercased()) { (req, resp) -> Bool in
+                resp.send("\(clzName): \(router) request received.")
+                return true
+            }
         }
     }
 }

@@ -15,8 +15,8 @@ let package = Package(
         .target(name: "KituraManager", dependencies: [
             "Kitura", "Reflection"
         ]),
-        .testTarget(name: "KituraManagerTests", dependencies: [
-            .target(name: "KituraManager")
+        .testTarget(name: "KituraManagerTests", dependencies: [ 
+            "KituraManager","Kitura", "Reflection"
         ])
     ]
 )

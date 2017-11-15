@@ -28,6 +28,7 @@ public class App {
         // Loading model
         mgr.registerModel(Person.self)
         mgr.registerModel(Car.self)
+        
     }
 
     public func run() throws {

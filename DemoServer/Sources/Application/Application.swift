@@ -13,6 +13,7 @@ public let health = Health()
 public class App {
     let router = Router()
     let cloudEnv = CloudEnv()
+    let mgr = KituraManager()  
 
     public init() throws {
     }
@@ -23,6 +24,10 @@ public class App {
 
         // Endpoints
         initializeHealthRoutes(app: self)
+
+        // Loading model
+        mgr.registerModel(Person.self)
+        mgr.registerModel(Car.self)
     }
 
     public func run() throws {

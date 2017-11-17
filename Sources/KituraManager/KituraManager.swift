@@ -2,15 +2,6 @@ import Kitura
 import Reflection
 
 public typealias CBMethod = (RouterRequest, RouterResponse) -> Bool
-public protocol KMModel {
-    func primaryKey() -> String?
-    
-    /* TODO List
-      * Should have db related operations.
-      * Should contained relationship operation
-      * Should contained primary key options.
-     */
-}
 
 public class KituraManager {
     internal let _router: Router
@@ -119,7 +110,7 @@ public class KituraManager {
     }
     
     public func registerModel<T: KMModel>(_ clz: T.Type) {
-        let clzName = String(describing: T.self)
+        let clzName = clz.className
         print("Class:\(clzName)")
         
         let props = try? properties(T.self)

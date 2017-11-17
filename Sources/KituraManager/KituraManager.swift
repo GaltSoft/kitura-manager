@@ -113,8 +113,7 @@ public class KituraManager {
         let clzName = clz.className
         print("Class:\(clzName)")
         
-        let props = try? properties(T.self)
-        for prop in props! {
+        for prop in clz.properties() {
             print("Type:\(prop.type), Key:\(prop.key)")
         }
         

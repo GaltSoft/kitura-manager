@@ -1,24 +1,16 @@
 import XCTest
-import Kitura
 @testable import KituraManager
 
 class KituraManagerTests: XCTestCase {
-    public func testGet() {
+    func testExample() {
         // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let mgr = KituraManager()
-        mgr.setupRouter("GET", path: "/") { (req, resp) -> Bool in
-            resp.send("Hello, World!")
-            Kitura.stop()
-            XCTAssertNil(resp.error)
-            return true
-        }
-        Kitura.run()
+        // Use XCTAssert and related functions to verify your tests produce the correct
+        // results.
+        XCTAssertEqual(KituraManager().text, "Hello, World!")
     }
-    
-    static var allTests: [(String, (KituraManagerTests) -> () throws -> Void)] {
-        return [
-            ("testGet", testGet)
-        ]
-    }
+
+
+    static var allTests = [
+        ("testExample", testExample),
+    ]
 }

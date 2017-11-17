@@ -1,2 +1,3 @@
-# kitura-manager
-API Management inspired by  Django REST framework
+# KituraManager
+
+A description of this package.

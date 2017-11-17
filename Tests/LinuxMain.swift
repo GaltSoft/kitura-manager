@@ -1,6 +1,6 @@
 import XCTest
-@testable import kitura_managerTests
+@testable import KituraManagerTests
 
 XCTMain([
-    testCase(kitura_managerTests.allTests),
+    testCase(KituraManagerTests.allTests),
 ])

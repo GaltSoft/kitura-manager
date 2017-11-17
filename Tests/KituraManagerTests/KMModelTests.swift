@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import KituraManager
+@testable import KituraManager
 
 
 struct Person : KMModel {
@@ -58,7 +58,6 @@ class KMModelTests: XCTestCase {
         XCTAssert(typeCompare(propertyTypeAge,  expectedResult3))
         
     }
-    
 }
 
 extension KMModelTests {

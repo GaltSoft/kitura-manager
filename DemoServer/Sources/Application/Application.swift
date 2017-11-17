@@ -26,8 +26,8 @@ public class App {
         initializeHealthRoutes(app: self)
 
         // Loading model
-        mgr.registerModel(Person.self)
-        mgr.registerModel(Car.self)
+        // mgr.registerModel(Person.self)
+        // mgr.registerModel(Car.self)
         
     }
 

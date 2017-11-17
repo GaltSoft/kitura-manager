@@ -10,7 +10,7 @@ let package = Package(
       .package(url: "https://github.com/IBM-Swift/Configuration.git", .upToNextMinor(from: "1.0.0")),
       .package(url: "https://github.com/RuntimeTools/SwiftMetrics.git", from: "2.0.0"),
       .package(url: "https://github.com/IBM-Swift/Health.git", from: "0.0.0"),
-      .package(url: "../../kitura-manager", from: "0.0.4"),
+      .package(url: "../../kitura-manager", from: "0.0.5"),
     ],
     targets: [
       .target(name: "DemoServer", dependencies: [ .target(name: "Application"), "Kitura" , "HeliumLogger"]),

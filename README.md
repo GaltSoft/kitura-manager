@@ -1,6 +1,7 @@
 # KituraManager
 
 API Management inspired by Django REST framework 
+
 [![Slack][slack-badge]][slack-url]
 ![Mac OS X](https://img.shields.io/badge/os-Mac%20OS%20X-green.svg?style=flat)
 ![Linux](https://img.shields.io/badge/os-linux-green.svg?style=flat)
@@ -13,8 +14,8 @@ The vision is to drive an API implementation from a Swift Class that describes t
 Early design and exploration stage. Please provide comments and suggestions, jump in and help. 
 
 ## Resources
-. ![Reflection](https://github.com/Zewo/Reflection) provides an API for advanced reflection at runtime including dynamic construction of types.
-. ![Swift-Kuery](https://github.com/IBM-Swift/Swift-Kuery)SQL database abstraction layer
+- [Reflection](https://github.com/Zewo/Reflection) provides an API for advanced reflection at runtime including dynamic construction of types.
+- [Swift-Kuery](https://github.com/IBM-Swift/Swift-Kuery) SQL database abstraction layer.
 
 
 ## License

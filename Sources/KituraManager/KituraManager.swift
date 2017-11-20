@@ -111,11 +111,11 @@ public class KituraManager {
     
     public func registerModel<T: KMModel>(_ clz: T.Type) {
         let clzName = clz.className
-        print("Class:\(clzName)")
-        
-        for prop in clz.properties() {
-            print("Type:\(prop.type), Key:\(prop.key)")
-        }
+//        print("Class:\(clzName)")
+//
+//        for prop in clz.properties() {
+//            print("Type:\(prop.type), Key:\(prop.key)")
+//        }
         
         // Set Router for CRUD
         let arrRouter = ["POST", "GET", "PUT", "DELETE"]

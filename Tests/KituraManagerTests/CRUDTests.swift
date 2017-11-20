@@ -11,10 +11,6 @@ class CRUDTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
-        print("------------------------------")
-        print("---------- CRUD Test ---------")
-        print("------------------------------")
         
         let mgr = KituraManager()
 
@@ -40,7 +36,7 @@ class CRUDTests: XCTestCase {
         URLRequest(forTestWithMethod: router, route: "person")?
             .sendForTestingWithKitura { data, statusCode in
                 if let getResult = String(data: data, encoding: String.Encoding.utf8){
-                    print("Person: \(router) request received.")
+//                    print("Person: \(router) request received.")
                     XCTAssertEqual(statusCode, 200)
                     XCTAssertTrue(getResult.contains("Person: \(router) request received."))
                 } else {

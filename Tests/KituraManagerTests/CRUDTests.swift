@@ -8,12 +8,7 @@ import KituraManager
 
 class CRUDTests: XCTestCase {
     static var port = 8080
-    static var allTests : [(String, (CRUDTests) -> () throws -> Void)] {
-        return [
-            ("testCRUDStatic", testCRUDStatic)
-        ]
-    }
-    
+
     override func setUp() {
         super.setUp()
 
@@ -120,3 +115,10 @@ private extension URLRequest {
         }
     }
 }
+extension CRUDTests {
+    static var allTests : [(String, (CRUDTests) -> () throws -> Void)] {
+        return [
+            ("testCRUDStatic", testCRUDStatic)
+        ]
+    }
+}   

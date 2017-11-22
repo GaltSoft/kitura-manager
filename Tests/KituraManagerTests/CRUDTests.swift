@@ -5,6 +5,8 @@ import KituraNet
 import HeliumLogger
 import LoggerAPI
 import KituraManager
+import SwiftKuery
+import SwiftKueryPostgreSQL
 
 class CRUDTests: XCTestCase {
     static var port = 8080
@@ -13,8 +15,12 @@ class CRUDTests: XCTestCase {
         super.setUp()
         
         let mgr = KituraManager()
-
-        mgr.registerModel(Person.self)
+        
+//        mgr.registerModel(Person.self)
+        mgr.registerModel(Person.self) { (router, path) -> String in
+            return "Callback result"
+        }
+        
         Kitura.start()
     }
     
@@ -36,9 +42,9 @@ class CRUDTests: XCTestCase {
         URLRequest(forTestWithMethod: router, route: "person")?
             .sendForTestingWithKitura { data, statusCode in
                 if let getResult = String(data: data, encoding: String.Encoding.utf8){
-//                    print("Person: \(router) request received.")
                     XCTAssertEqual(statusCode, 200)
-                    XCTAssertTrue(getResult.contains("Person: \(router) request received."))
+//                    XCTAssertTrue(getResult.contains("Person: \(router) request received."))
+                    XCTAssertTrue(getResult.contains("Callback result"))
                 } else {
                     XCTFail("Return value from / was nil!")
                 }
@@ -48,10 +54,51 @@ class CRUDTests: XCTestCase {
         
         waitForExpectations(timeout: 10.0, handler: nil)
     }
+    
+    func testSwiftQuery() {
+        let person = Person()
+        let query = Select(from: person) // "SELECT * FROM tb_person"
+        
+        let pool = PostgreSQLConnection.createPool(
+            host: "localhost",
+            port: 5432,
+            options: [.databaseName("db_kitura")],
+            poolOptions: ConnectionPoolOptions(
+                initialCapacity: 10,
+                maxCapacity: 50,
+                timeout: 10000
+        ))
+        
+        guard let connection = pool.getConnection() else {
+            XCTFail("Error: failed to get a connection.")
+            return
+        }
+        connection.execute(query: query) { (queryResult) in
+            if let error = queryResult.asError {
+                XCTFail("Something went wrong \(error)")
+            } else {
+                guard queryResult.asResultSet != nil else {
+                    XCTFail("Error: failed to get a resultSet.")
+                    return
+                }
+                
+                guard let rows = queryResult.asRows else {
+                    XCTFail("Error: failed to get rows")
+                    return
+                }
+                
+                for row in rows {
+                    XCTAssertNotNil(row["id"]!)
+                    XCTAssertNotNil(row["fname"]!)
+                    XCTAssertNotNil(row["lname"]!)
+                    XCTAssertNotNil(row["age"]!)
+                }
+            }
+        }
+    }
 }
 
 private extension URLRequest {
-    
     init?(forTestWithMethod method: String, route: String = "", body: Data? = nil) {
         if let url = URL(string: "http://localhost:\(CRUDTests.port)/" + route){
             self.init(url: url)
@@ -114,7 +161,8 @@ private extension URLRequest {
 extension CRUDTests {
     static var allTests : [(String, (CRUDTests) -> () throws -> Void)] {
         return [
-            ("testCRUDStatic", testCRUDStatic)
+            ("testCRUDStatic", testCRUDStatic),
+            ("testSwiftQuery", testSwiftQuery)
         ]
     }
 }   

@@ -7,10 +7,10 @@
 
 import Foundation
 import Reflection
+import SwiftKuery
 
-
-public protocol KMModel {
-    func primaryKey() -> String?
+public class KMModel: Table {
+    public let primaryKey: String = ""
     
     /* TODO List
      * Should have db related operations.
@@ -25,8 +25,8 @@ public protocol KMProperty {
 
 public extension KMModel {
     
-    static var className: String {
-        return  String(describing: type(of: self)).components(separatedBy: ".").first!
+    public class var className: String {
+        return String(describing: self).components(separatedBy: ".").first!
     }
 
     static func properties() -> [Property.Description] {

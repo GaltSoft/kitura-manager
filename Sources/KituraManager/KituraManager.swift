@@ -2,6 +2,7 @@ import Kitura
 import Reflection
 
 public typealias CBMethod = (RouterRequest, RouterResponse) -> Bool
+public typealias CBM_regModel = (String, String) -> String
 
 public class KituraManager {
     internal let _router: Router
@@ -13,7 +14,7 @@ public class KituraManager {
     }
   
     // MARK: - Http Requests (Inner)
-    public func setupRouter(_ routerMethod: String, path: String,  callback: @escaping CBMethod) {
+    public func setupRouter(_ routerMethod: String, path: String, callback: @escaping CBMethod) {
         guard let method = RouterMethod(rawValue: routerMethod) else { return }
         let handler:RouterHandler =  {req, resp, next in
             if callback(req, resp) {
@@ -109,19 +110,22 @@ public class KituraManager {
         }
     }
     
-    public func registerModel<T: KMModel>(_ clz: T.Type) {
+    public func registerModel<T: KMModel>(_ clz: T.Type, callback: ((String, String) -> Any)? = nil) {
         let clzName = clz.className
-//        print("Class:\(clzName)")
-//
-//        for prop in clz.properties() {
-//            print("Type:\(prop.type), Key:\(prop.key)")
-//        }
         
         // Set Router for CRUD
         let arrRouter = ["POST", "GET", "PUT", "DELETE"]
         for router in arrRouter {
             setupRouter(router, path: clzName.lowercased()) { (req, resp) -> Bool in
-                resp.send("\(clzName): \(router) request received.")
+                // Perform Database Operations
+                var data = "\(clzName): \(router) request received."
+                
+                if callback != nil {
+                    data = callback!(router, clzName.lowercased()) as! String
+                }
+                
+                print(data)
+                resp.send(data)
                 return true
             }
         }

@@ -7,22 +7,15 @@
 
 import XCTest
 @testable import KituraManager
+import SwiftKuery
+import SwiftKueryPostgreSQL
 
-
-struct Person : KMModel {
-    func primaryKey() -> String? {
-        return lastName + firstName
-    }
-    
-    var firstName: String
-    var lastName: String
-    var age: Int
-    
-    init(firstName: String, lastName: String, age: Int) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.age = age
-    }
+public class Person : KMModel {
+    let tableName = "tb_person"
+    let id = Column("id")
+    let firstName = Column("fName")
+    let lastName = Column("lName")
+    let age = Column("age")
 }
 
 func typeCompare(_ a: Any, _ b: Any) -> Bool {
@@ -32,31 +25,18 @@ func typeCompare(_ a: Any, _ b: Any) -> Bool {
 }
 
 class KMModelTests: XCTestCase {
-    
     func testClassName() {
-        
-            let personClassName = Person.className
-            let expectedResult = "Person"
-            XCTAssertEqual(personClassName, expectedResult)
+        let personClassName = Person.className
+        let expectedResult = "Person"
+        XCTAssertEqual(personClassName, expectedResult)
     }
     
     func testPropertyList() {
-        
         let propertyList = Person.properties()
-        
-        let propertyNameList = propertyList.map({ $0.key })
-        let expectedResult = ["firstName", "lastName", "age"]
-        XCTAssertEqual(propertyNameList, expectedResult)
-        
-        let propertyTypeFirstName = propertyList[0].type
-        let expectedResult2 = String.Type.self
-        XCTAssert(typeCompare(propertyTypeFirstName,  expectedResult2))
-        
-        
-        let propertyTypeAge = propertyList[2].type
-        let expectedResult3 = Int.Type.self
-        XCTAssert(typeCompare(propertyTypeAge,  expectedResult3))
-        
+        ["tableName", "id", "firstName", "lastName", "age"].forEach { key in
+            let item = propertyList.filter { $0.key == key }.first
+            XCTAssertNotNil(item, "OK!")
+        }
     }
 }
 
